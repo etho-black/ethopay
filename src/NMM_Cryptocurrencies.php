@@ -1,33 +1,35 @@
 <?php
 
 // Crypto Helper
-class NMM_Cryptocurrencies {
-
-	public static function get() {
+class NMM_Cryptocurrencies
+{
+    public static function get()
+    {
         // id, name, round_precision, icon_filename, refresh_time, symbol, has_hd, has_autopay, needs_confirmations, erc20contract
-		$cryptoArray = array(
-            
+        $cryptoArray = array(
+
             // privacy mpk
             'BTC' => new NMM_Cryptocurrency('BTC', 'Bitcoin', 8, 'bitcoin_logo_small.png', 60, '₿', true, true, true, ''),
             'LTC' => new NMM_Cryptocurrency('LTC', 'Litecoin', 8, 'litecoin_logo_small.png', 60, 'Ł', true, true, true, ''),
-            'QTUM' => new NMM_Cryptocurrency('QTUM', 'Qtum', 8, 'qtum_logo_small.png', 60, '', true, false, true, ''),            
-            'DASH' => new NMM_Cryptocurrency('DASH', 'Dash', 8, 'dash_logo_small.png', 60, '', true, true, true, ''),            
+            'QTUM' => new NMM_Cryptocurrency('QTUM', 'Qtum', 8, 'qtum_logo_small.png', 60, '', true, false, true, ''),
+            'DASH' => new NMM_Cryptocurrency('DASH', 'Dash', 8, 'dash_logo_small.png', 60, '', true, true, true, ''),
             'DOGE' => new NMM_Cryptocurrency('DOGE', 'Dogecoin', 8, 'dogecoin_logo_small.png', 60, 'Ð', true, true, true, ''),
             'XMY' => new NMM_Cryptocurrency('XMY', 'Myriad', 8, 'myriad_logo_small.png', 60, '', true, true, true, ''),
             'BTX' => new NMM_Cryptocurrency('BTX', 'Bitcore', 8, 'bitcore_logo_small.png', 60, '', true, true, true, ''),
-			
-            // auto-pay coins            
+
+            // auto-pay coins
             'ETH' => new NMM_Cryptocurrency('ETH', 'Ethereum', 18, 'ethereum_logo_small.png', 60, 'Ξ', false, true, true, ''),
+            'ETHO' => new NMM_Cryptocurrency('ETHO', 'Ether-1', 18, 'ether-1_logo.png', 60, 'ETHO', false, true, true, ''),
             'DGB' => new NMM_Cryptocurrency('DGB', 'Digibyte', 8, 'digibyte_logo_small.png', 60, '', false, true, true, ''),
             'ZEC' => new NMM_Cryptocurrency('ZEC', 'Zcash', 8, 'zcash_logo_small.png', 60, 'ⓩ', false, true, true, ''),
-            'DCR' => new NMM_Cryptocurrency('DCR', 'Decred', 8, 'decred_logo_small.png', 60, '', false, true, true, ''),            
+            'DCR' => new NMM_Cryptocurrency('DCR', 'Decred', 8, 'decred_logo_small.png', 60, '', false, true, true, ''),
             'ADA' => new NMM_Cryptocurrency('ADA', 'Cardano', 6, 'cardano_logo_small.png', 60, '', false, true, false, ''),
             'XTZ' => new NMM_Cryptocurrency('XTZ', 'Tezos', 6, 'tezos_logo_small.png', 60, '', false, true, false, ''),
             'TRX' => new NMM_Cryptocurrency('TRX', 'Tron', 6, 'tron_logo_small.png', 60, '', false, true, false, ''),
             'XLM' => new NMM_Cryptocurrency('XLM', 'Stellar', 7, 'stellar_logo_small.png', 60, '', false, true, false, ''),
             'BCH' => new NMM_Cryptocurrency('BCH', 'Bitcoin Cash', 8, 'bitcoincash_logo_small.png', 60, '', false, true, true, ''),
             'EOS' => new NMM_Cryptocurrency('EOS', 'EOS', 4, 'eos_logo_small.png', 60, '', false, true, false, ''),
-            'BSV' => new NMM_Cryptocurrency('BSV', 'Bitcoin SV', 8, 'bitcoinsv_logo_small.png', 60, '', false, true, false, ''),            
+            'BSV' => new NMM_Cryptocurrency('BSV', 'Bitcoin SV', 8, 'bitcoinsv_logo_small.png', 60, '', false, true, false, ''),
             'XRP' => new NMM_Cryptocurrency('XRP', 'XRP', 6, 'xrp_logo_small.png', 60, '', false, true, false, ''),
             'ONION' => new NMM_Cryptocurrency('ONION', 'DeepOnion', 8, 'deeponion_logo_small.png', 60, '', false, true, true, ''),
             'BLK' => new NMM_Cryptocurrency('BLK', 'BlackCoin', 8, 'blackcoin_logo_small.png', 60, '', false, true, true, ''),
@@ -41,7 +43,7 @@ class NMM_Cryptocurrencies {
             // tokens
             'HOT' => new NMM_Cryptocurrency('HOT', 'Holochain', 18, 'holochain_logo_small.png', 60, '', false, true, true, '0x6c6ee5e31d828de241282b9606c8e98ea48526e2'),
             'LINK' => new NMM_Cryptocurrency('LINK', 'Chainlink', 18, 'chainlink_logo_small.png', 60, '', false, true, true, '0x514910771af9ca656af840dff83e8264ecf986ca'),
-            'BAT' => new NMM_Cryptocurrency('BAT', 'Basic Attention Token', 18, 'basicattentiontoken_logo_small.png', 60, '', false, true, true, '0x0d8775f648430679a709e98d2b0cb6250d2887ef'),            
+            'BAT' => new NMM_Cryptocurrency('BAT', 'Basic Attention Token', 18, 'basicattentiontoken_logo_small.png', 60, '', false, true, true, '0x0d8775f648430679a709e98d2b0cb6250d2887ef'),
             'MKR' => new NMM_Cryptocurrency('MKR', 'Maker', 18, 'maker_logo_small.png', 60, '', false, true, true, '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2'),
             'OMG' => new NMM_Cryptocurrency('OMG', 'OmiseGO', 18, 'omisego_logo_small.png', 60, '', false, true, true, '0xd26114cd6EE289AccF82350c8d8487fedB8A0C07'),
             'REP' => new NMM_Cryptocurrency('REP', 'Augur', 18, 'augur_logo_small.png', 60, '', false, true, true, '0x1985365e9f78359a9B6AD760e32412f4a445E862'),
@@ -59,23 +61,24 @@ class NMM_Cryptocurrencies {
             'BCN' => new NMM_Cryptocurrency('BCN', 'Bytecoin', 8, 'bytecoin_logo_small.png', 60, '', false, false, true, ''),
             'BNB' => new NMM_Cryptocurrency('BNB', 'Binance Coin', 18, 'binancecoin_logo_small.png', 60, '', false, false, true, ''),
             'GUSD' => new NMM_Cryptocurrency('GUSD', 'Gemini Dollar', 2, 'geminidollar_logo_small.png', 60, '', false, false, true, '0x056Fd409E1d7A124BD7017459dFEa2F387b6d5Cd'),
-            
-            
+
+
             // More searching required
-            
+
             'POT' => new NMM_Cryptocurrency('POT', 'Potcoin', 18, 'potcoin_logo_small.png', 60, '', false, false, true, ''),
             // https://www.reddit.com/r/OntologyNetwork/comments/9duf28/api_to_get_ont_balance/
-            'ONT' => new NMM_Cryptocurrency('ONT', 'Ontology', 18, 'ontology_logo_small.png', 60, '', false, false, true, ''),            
-            
+            'ONT' => new NMM_Cryptocurrency('ONT', 'Ontology', 18, 'ontology_logo_small.png', 60, '', false, false, true, ''),
+
             // https://api.iogateway.cloud/api/Tangle/address/SDCUDAWKRZWFJFWROUAYVTKLZIGDNBDMBLZIWFWNXZLFRKPUGECMMZGPUFYZGANUZEP9VRPTFTVCKZVAWVRJTWZQDD/transactions
-            
+
             'MIOTA' => new NMM_Cryptocurrency('MIOTA', 'Iota', 18, 'iota_logo_small.png', 60, '', false, false, true, ''),
         );
 
         return $cryptoArray;
-	}
+    }
 
-    public static function get_hd() {
+    public static function get_hd()
+    {
         $cryptos = self::get();
         $privacyCryptos = [];
 
@@ -88,12 +91,13 @@ class NMM_Cryptocurrencies {
         return $privacyCryptos;
     }
 
-    public static function get_erc20_tokens() {
+    public static function get_erc20_tokens()
+    {
         $cryptos = self::get();
         $erc20Tokens = [];
 
-        foreach ($cryptos as $crypto) {            
-            if ($crypto->is_erc20_token()) {                
+        foreach ($cryptos as $crypto) {
+            if ($crypto->is_erc20_token()) {
                 $erc20Tokens[$crypto->get_id()] = $crypto;
             }
         }
@@ -101,7 +105,8 @@ class NMM_Cryptocurrencies {
         return $erc20Tokens;
     }
 
-    public static function get_non_erc20_tokens() {
+    public static function get_non_erc20_tokens()
+    {
         $cryptos = self::get();
         $nonErc20Tokens = [];
 
@@ -114,8 +119,8 @@ class NMM_Cryptocurrencies {
         return $nonErc20Tokens;
     }
 
-    public static function is_erc20_token($cryptoId) {
-
+    public static function is_erc20_token($cryptoId)
+    {
         if (array_key_exists($cryptoId, NMM_Cryptocurrencies::get_erc20_tokens())) {
             return true;
         }
@@ -123,11 +128,12 @@ class NMM_Cryptocurrencies {
         return false;
     }
 
-    public static function get_erc20_contract($cryptoId) {
+    public static function get_erc20_contract($cryptoId)
+    {
         $erc20Tokens = NMM_Cryptocurrencies::get_erc20_tokens();
-        
+
         foreach ($erc20Tokens as $token) {
-            if ($token->get_id() === $cryptoId) {                
+            if ($token->get_id() === $cryptoId) {
                 return $token->get_erc20_contract();
             }
         }
@@ -136,18 +142,20 @@ class NMM_Cryptocurrencies {
     }
 
 
-    public static function get_alpha() {
+    public static function get_alpha()
+    {
         $cryptoArray = NMM_Cryptocurrencies::get();
-        
-        $keys = array_map(function($val) {
-                return $val->get_id();
-            }, $cryptoArray);
+
+        $keys = array_map(function ($val) {
+            return $val->get_id();
+        }, $cryptoArray);
         array_multisort($keys, $cryptoArray);
         return $cryptoArray;
     }
 
     // Php likes to convert numbers to scientific notation, so this handles displaying small amounts correctly
-    public static function get_price_string($cryptoId, $amount) {
+    public static function get_price_string($cryptoId, $amount)
+    {
         $cryptos = self::get();
         $crypto = $cryptos[$cryptoId];
 
@@ -166,12 +174,15 @@ class NMM_Cryptocurrencies {
         return $amountWithoutTrailingDecimal;
     }
 
-	public static function is_valid_wallet_address($cryptoId, $address) {
-            
-        if ($cryptoId === 'BTC') {            
+    public static function is_valid_wallet_address($cryptoId, $address)
+    {
+        if ($cryptoId === 'BTC') {
             return preg_match('/^[13][a-km-zA-HJ-NP-Z0-9]{24,42}|bc[a-z0-9]{8,87}/', $address);
         }
         if ($cryptoId === 'ETH') {
+            return preg_match('/0x[a-fA-F0-9]{40,42}/', $address);
+        }
+        if ($cryptoId === 'ETHO') {
             return preg_match('/0x[a-fA-F0-9]{40,42}/', $address);
         }
         if ($cryptoId === 'XMR') {
@@ -180,7 +191,7 @@ class NMM_Cryptocurrencies {
             // 2-15-2019 not testing Monero
             return strlen($address) > 30;
         }
-        if ($cryptoId === 'DOGE'){
+        if ($cryptoId === 'DOGE') {
             return preg_match('/^D{1}[5-9A-HJ-NP-U]{1}[1-9A-HJ-NP-Za-km-z]{32}/', $address);
         }
         if ($cryptoId === 'LTC') {
@@ -311,9 +322,9 @@ class NMM_Cryptocurrencies {
             return preg_match('/^0x[a-fA-F0-9]{40,42}/', $address);
         }
         if ($cryptoId === 'XMY') {
-            return preg_match('/^[M45][a-zA-Z0-9]{31,38}/', $address);   
+            return preg_match('/^[M45][a-zA-Z0-9]{31,38}/', $address);
         }
-        if ($cryptoId === 'BTX') {            
+        if ($cryptoId === 'BTX') {
             return preg_match('/^[2s][a-km-zA-HJ-NP-Z0-9]{24,42}|btx[a-z0-9]{8,87}/', $address);
         }
         if ($cryptoId === 'GRS') {
@@ -325,10 +336,8 @@ class NMM_Cryptocurrencies {
         if ($cryptoId === 'USDC') {
             return preg_match('/^0x[a-fA-F0-9]{40,42}/', $address);
         }
-        
-        NMM_Util::log(__FILE__, __LINE__, 'Invalid cryptoId, contact plug-in developer.');        
-        throw new Exception('Invalid cryptoId, contact plug-in developer.');
-    }    
-}
 
-?>
+        NMM_Util::log(__FILE__, __LINE__, 'Invalid cryptoId, contact plug-in developer.');
+        throw new Exception('Invalid cryptoId, contact plug-in developer.');
+    }
+}

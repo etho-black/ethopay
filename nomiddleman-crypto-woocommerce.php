@@ -2,13 +2,13 @@
 /*
 WC requires at least: 3.0.0
 WC tested up to: 3.7.0
-Plugin Name: Nomiddleman Bitcoin and Crypto Payments for WooCommerce
+Plugin Name: ETHOPay for WooCommerce
 Plugin URI:  https://wordpress.org/plugins/nomiddleman-crypto-payments-for-woocommerce/
-Description: WooCommerce Bitcoin and Cryptocurrency Payment Gateway
-Author: nomiddleman
-Author URI: https://nomiddlemancrypto.io
+Description: WooCommerce Ether-1 Payment Gateway
+Author: nomiddleman & etho.black
+Author URI: Ether-1
 
-Version: 2.4.6
+Version: 2.4.9
 Copyright: © 2019 Nomiddleman Crypto (email : support@nomiddlemancrypto.io)
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -20,7 +20,7 @@ register_activation_hook(__FILE__, 'NMM_activate');
 register_deactivation_hook(__FILE__, 'NMM_deactivate');
 register_uninstall_hook(__FILE__, 'NMM_uninstall');
 define('NMM_HD_TABLE', 'nmmpro_hd_addresses');
-define('NMM_PAYMENT_TABLE', 'nmmpro_payments');  
+define('NMM_PAYMENT_TABLE', 'nmmpro_payments');
 define('NMM_CAROUSEL_TABLE', 'nmmpro_carousel');
 define('NMM_HD_TABLE_VERSION', '1.1');
 define('NMM_LOGFILE_NAME', 'nmm.log');
@@ -35,20 +35,20 @@ function NMM_init_gateways(){
         return;
     };
 
-    define('NMM_PLUGIN_DIR', plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__)));    
+    define('NMM_PLUGIN_DIR', plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__)));
     define('NMM_PLUGIN_FILE', __FILE__);
     define('NMM_ABS_PATH', dirname(NMM_PLUGIN_FILE));
     define('NMM_PLUGIN_BASENAME', plugin_basename(NMM_PLUGIN_FILE));
 
     define('NMM_CRON_JOB_URL', plugins_url('', __FILE__) . '/src/NMM_Cron.php');
-    define('NMM_VERSION', '2.4.6');
-    
+    define('NMM_VERSION', '2.4.9');
+
     define('NMM_REDUX_SLUG', 'nmmpro_options');
 
     if ( !class_exists( 'ReduxFramework' ) && file_exists( NMM_ABS_PATH . '/src/vendor/ReduxFramework/ReduxCore/framework.php' ) ){
         require_once( NMM_ABS_PATH . '/src/vendor/ReduxFramework/ReduxCore/framework.php' );
-    }  
-    
+    }
+
     // Vendor
     if (!class_exists('bcmath_Utils')) {
         require_once(plugin_basename('src/vendor/bcmath_Utils.php'));
@@ -87,11 +87,11 @@ function NMM_init_gateways(){
     // Simple Objects
     require_once(plugin_basename('src/NMM_Cryptocurrency.php'));
     require_once(plugin_basename('src/NMM_Transaction.php'));
-    
+
     // Business Logic
     require_once(plugin_basename('src/NMM_Cryptocurrencies.php'));
     require_once(plugin_basename('src/NMM_Carousel.php'));
-    require_once(plugin_basename('src/NMM_Hd.php'));    
+    require_once(plugin_basename('src/NMM_Hd.php'));
     require_once(plugin_basename('src/NMM_Payment.php'));
 
     // Misc
@@ -100,33 +100,33 @@ function NMM_init_gateways(){
     require_once(plugin_basename('src/NMM_Cron.php'));
     require_once(plugin_basename('src/NMM_Admin.php'));
     require_once(plugin_basename('src/NMM_Settings.php'));
-    
+
     require_once(plugin_basename('src/NMM_Validation.php'));
 
     // Core
     require_once(plugin_basename('src/NMM_Gateway.php'));
-    
+
     add_filter ('cron_schedules', 'NMM_add_interval');
 
     add_action('NMM_cron_hook', 'NMM_do_cron_job');
     add_action('woocommerce_order_status_changed', 'NMM_update_database_when_admin_changes_order_status', 10, 3);
-    
+
     add_action('redux/page/' . NMM_REDUX_ID . '/load', 'NMM_load_redux_css');
-    add_filter('redux/validate/' . NMM_REDUX_ID . '/before_validation', array('NMM_Validation', 'validate_redux_options'), 10, 2);    
-    
-    add_action('admin_notices', 'NMM_display_flash_notices', 12);    
+    add_filter('redux/validate/' . NMM_REDUX_ID . '/before_validation', array('NMM_Validation', 'validate_redux_options'), 10, 2);
+
+    add_action('admin_notices', 'NMM_display_flash_notices', 12);
 
     if (is_admin()) {
         add_action('admin_enqueue_scripts', 'NMM_load_js');
         add_action('wp_ajax_firstmpkaddress', 'NMM_first_mpk_address_ajax');
-    }    
+    }
 
     NMM_Register_Extensions();
     NMM_update_hd_table();
 
     if (!wp_next_scheduled('NMM_cron_hook')) {
         wp_schedule_event(time(), 'seconds_30', 'NMM_cron_hook');
-    }    
+    }
 }
 
 function NMM_add_interval ($schedules)
@@ -143,14 +143,14 @@ function NMM_activate() {
     if (!wp_next_scheduled('NMM_cron_hook')) {
         wp_schedule_event(time(), 'seconds_30', 'NMM_cron_hook');
     }
-    
+
     NMM_create_hd_mpk_address_table();
     NMM_create_payment_table();
-    NMM_create_carousel_table();    
+    NMM_create_carousel_table();
 }
 
 function NMM_deactivate() {
-    wp_clear_scheduled_hook('NMM_cron_hook');    
+    wp_clear_scheduled_hook('NMM_cron_hook');
 }
 
 function NMM_uninstall() {
@@ -162,23 +162,23 @@ function NMM_uninstall() {
 function NMM_drop_mpk_address_table() {
     global $wpdb;
     $tableName = $wpdb->prefix . NMM_HD_TABLE;
-    
+
     $query = "DROP TABLE IF EXISTS `$tableName`";
     $wpdb->query($query);
 }
 
 function NMM_drop_payment_table() {
-    global $wpdb;    
-    $tableName = $wpdb->prefix . NMM_PAYMENT_TABLE;    
-    
+    global $wpdb;
+    $tableName = $wpdb->prefix . NMM_PAYMENT_TABLE;
+
     $query = "DROP TABLE IF EXISTS `$tableName`";
     $wpdb->query($query);
 }
 
 function NMM_drop_carousel_table() {
-    global $wpdb;    
-    $tableName = $wpdb->prefix . NMM_CAROUSEL_TABLE;    
-    
+    global $wpdb;
+    $tableName = $wpdb->prefix . NMM_CAROUSEL_TABLE;
+
     $query = "DROP TABLE IF EXISTS `$tableName`";
     $wpdb->query($query);
 }
@@ -186,7 +186,7 @@ function NMM_drop_carousel_table() {
 function NMM_create_hd_mpk_address_table() {
     global $wpdb;
     $tableName = $wpdb->prefix . NMM_HD_TABLE;
-    
+
     $query = "CREATE TABLE IF NOT EXISTS `$tableName`
         (
             `id` bigint(12) unsigned NOT NULL AUTO_INCREMENT,
@@ -198,10 +198,10 @@ function NMM_create_hd_mpk_address_table() {
             `total_received` decimal( 16, 8 ) NOT NULL DEFAULT '0.00000000',
             `last_checked` bigint(20) NOT NULL DEFAULT '0',
             `assigned_at` bigint(20) NOT NULL DEFAULT '0',
-            `order_id` bigint(10) NULL,            
+            `order_id` bigint(10) NULL,
             `order_amount` decimal(16, 8) NOT NULL DEFAULT '0.00000000',
             `all_order_ids` text NULL,
-    
+
             PRIMARY KEY (`id`),
             UNIQUE KEY `hd_address` (`cryptocurrency`, `address`),
             KEY `status` (`status`),
@@ -214,14 +214,14 @@ function NMM_create_hd_mpk_address_table() {
 
 function NMM_update_hd_table() {
     global $wpdb;
-    
+
     if (get_option('nmm_hd_table_version', '1.0') === '1.0') {
         update_option('nmm_hd_table_version', '1.1');
 
         $tableName = $wpdb->prefix . NMM_HD_TABLE;
-        
+
         $query = "ALTER TABLE `$tableName` ADD `hd_mode` bigint(10) NOT NULL default '0'";
-        $wpdb->query($query);        
+        $wpdb->query($query);
     }
 
 }
@@ -229,7 +229,7 @@ function NMM_update_hd_table() {
 function NMM_create_payment_table() {
     global $wpdb;
     $tableName = $wpdb->prefix . NMM_PAYMENT_TABLE;
-    
+
     $query = "CREATE TABLE IF NOT EXISTS `$tableName`
         (
             `id` bigint(12) unsigned NOT NULL AUTO_INCREMENT,
@@ -242,7 +242,7 @@ function NMM_create_payment_table() {
             `tx_hash` char(255) NULL,
             `hd_address` tinyint(4) NOT NULL DEFAULT '0',
 
-    
+
             PRIMARY KEY (`id`),
             UNIQUE KEY `unique_payment` (`order_id`, `order_amount`),
             KEY `status` (`status`)
@@ -253,7 +253,7 @@ function NMM_create_payment_table() {
 
 function NMM_create_carousel_table() {
     global $wpdb;
-    $tableName = $wpdb->prefix . NMM_CAROUSEL_TABLE;    
+    $tableName = $wpdb->prefix . NMM_CAROUSEL_TABLE;
 
     $query = "CREATE TABLE IF NOT EXISTS `$tableName`
         (
@@ -271,7 +271,7 @@ function NMM_create_carousel_table() {
     require_once(plugin_basename('src/NMM_Carousel_Repo.php'));
     require_once(plugin_basename('src/NMM_Util.php'));
     require_once(plugin_basename('src/NMM_Cryptocurrencies.php'));
-    
+
     NMM_Carousel_Repo::init();
 
     $cryptos = NMM_Cryptocurrencies::get();
@@ -291,7 +291,7 @@ function NMM_create_carousel_table() {
     }
 }
 
-function NMM_Register_Extensions() {    
+function NMM_Register_Extensions() {
     $extensionsDir = NMM_ABS_PATH . '/src/extensions/';
     $extensions = scandir($extensionsDir);
     $extensionsToLoad = [];

@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Redux' ) ) {
+if (! class_exists('Redux')) {
     return;
 }
 
@@ -8,7 +8,7 @@ $nmm_redux_args = array(
     // TYPICAL -> Change these values as you need/desire
     'opt_name'             => NMM_REDUX_ID,
     // This is where your data is stored in the database and also becomes your global variable name.
-    'display_name'         => apply_filters('nmm_settings_display_name', 'Nomiddleman Crypto Payments for Woocommerce'),
+    'display_name'         => apply_filters('nmm_settings_display_name', 'ETHOPay'),
     'display_version'      => NMM_VERSION,
     'hide_reset'           => false,
     'disable_tracking'     => true,
@@ -23,8 +23,8 @@ $nmm_redux_args = array(
     //Specify if the admin menu should appear or not. Options: menu or submenu (Under appearance only)
     'allow_sub_menu'       => true,
     // Show the sections below the admin menu item or not
-    'menu_title'           => apply_filters('nmm_settings_menu_title', 'Nomiddleman Crypto Payments'),
-    'page_title'           => apply_filters('nmm_settings_page_title', 'Nomiddleman Crypto Settings'),
+    'menu_title'           => apply_filters('nmm_settings_menu_title', 'ETHO Payments'),
+    'page_title'           => apply_filters('nmm_settings_page_title', 'ETHOPay Settings'),
     // You will need to generate a Google API key to use this feature.
     // Please visit: https://developers.google.com/fonts/docs/developer_api#Auth
     'google_api_key'       => '',
@@ -57,7 +57,7 @@ $nmm_redux_args = array(
     // For a full list of options, visit: http://codex.wordpress.org/Function_Reference/add_submenu_page#Parameters
     'page_permissions'     => 'manage_options',
     // Permissions needed to access the options panel.
-    'menu_icon'            => NMM_PLUGIN_DIR . '/assets/img/redux-menu-icon.svg',
+    'menu_icon'            => NMM_PLUGIN_DIR . '/assets/img/ether1.svg',
     // Specify a custom URL to an icon
     'last_tab'             => '0',
     // Force your panel to always open to a specific tab (by id)
@@ -118,7 +118,8 @@ $nmm_redux_args = array(
 
 Redux::setArgs(NMM_REDUX_ID, $nmm_redux_args);
 
-function NMM_get_crypto_select_values() {
+function NMM_get_crypto_select_values()
+{
     $cryptoSelect = [];
     $cryptos = NMM_Cryptocurrencies::get_alpha();
 
@@ -126,7 +127,7 @@ function NMM_get_crypto_select_values() {
         $cryptoSelect[$crypto->get_id()] = $crypto->get_name() . ' (' . $crypto->get_id() . ')';
     }
 
-    return $cryptoSelect;   
+    return $cryptoSelect;
 }
 
 $nmm_section = array(
@@ -136,12 +137,12 @@ $nmm_section = array(
     'fields'   => array(
         array(
             'id' => 'payment_label',
-            'type' => 'text',            
-            'default' => 'Pay with cryptocurrency',
+            'type' => 'text',
+            'default' => 'Pay with $ETHO',
             'title' => 'Payment Label',
             'desc' => 'This will be displayed on the checkout screen when the customer selects their payment option.',
         ),
-             
+
     ),
 );
 
@@ -179,10 +180,9 @@ Redux::setSection(NMM_REDUX_ID, $nmm_section);
 
 $nmm_cryptos = NMM_Cryptocurrencies::get_alpha();
 
-foreach ($nmm_cryptos as $nmm_crypto) {    
-
+foreach ($nmm_cryptos as $nmm_crypto) {
     $nmm_cryptoOptions = array('0' => 'Classic Mode');
-    
+
     if ($nmm_crypto->has_autopay()) {
         $nmm_cryptoOptions['1'] = 'Autopay Mode <strong>(BETA)</strong>';
     }
@@ -190,19 +190,19 @@ foreach ($nmm_cryptos as $nmm_crypto) {
         $nmm_cryptoOptions['2'] = 'Privacy Mode';
     }
 
-	$nmm_section = array(
-	    'title'  => $nmm_crypto->get_name() . ' (' . $nmm_crypto->get_id() . ')',
-	    'id'     => $nmm_crypto->get_id() . '_redux_section',
-	    'subsection' => true,
-	    'desc'   => '',
-	    'icon_type' => 'image',
-	    'class' => 'crypto-subsection',
-	    'icon'   => $nmm_crypto->get_logo_file_path(),
-	    'fields'     => array(
-	       array(
+    $nmm_section = array(
+        'title'  => $nmm_crypto->get_name() . ' (' . $nmm_crypto->get_id() . ')',
+        'id'     => $nmm_crypto->get_id() . '_redux_section',
+        'subsection' => true,
+        'desc'   => '',
+        'icon_type' => 'image',
+        'class' => 'crypto-subsection',
+        'icon'   => $nmm_crypto->get_logo_file_path(),
+        'fields'     => array(
+           array(
                 'id'       => $nmm_crypto->get_id() . '_markup',
                 'type'     => 'spinner',
-                'title'    => 'Markup/Markdown %',                
+                'title'    => 'Markup/Markdown %',
                 'min'      => -99.9,
                 'max'      => 100,
                 'step'     => 0.1,
@@ -210,13 +210,13 @@ foreach ($nmm_cryptos as $nmm_crypto) {
                 'subtitle' => 'This only increases the crypto amount owed, the original fiat value will still be displayed to the customer.',
                 'desc' => 'This will increase/decrease the amount of cryptocurrency the customer will owe for the order.<br>(4.8 = 4.8% markup, -10.0 = 10% markdown)',
             ),
-    	    array(
+            array(
                 'id'       => $nmm_crypto->get_id() . '_mode',
                 'type'     => 'radio',
                 'title'    => 'Mode',
                 'ajax_save' => false,
-                'options'  => $nmm_cryptoOptions,                
-            ),                     
+                'options'  => $nmm_cryptoOptions,
+            ),
         ),
     );
 
@@ -224,7 +224,7 @@ foreach ($nmm_cryptos as $nmm_crypto) {
         $nmm_section['fields'][] = array(
             'id'       => $nmm_crypto->get_id() . '_autopayment_disclaimer',
             'type'     => 'info',
-            'style'    => 'warning',            
+            'style'    => 'warning',
             'title'    => '<h3 class="autopay-disclaimer-title">Autopay Disclaimer</h3>',
             'desc'     => '<div class="autopay-disclaimer-container">Please note Autopay Mode is still in <strong>beta</strong>. There is no guarantee every order will be processed correctly. If you have any questions contact us at support@nomiddlemancrypto.io.
                             <h3 class="autopay-disclaimer-adjustments">Adjusting the following settings can improve Autopay accuracy</h3>
@@ -233,9 +233,9 @@ foreach ($nmm_cryptos as $nmm_crypto) {
                                 <li><strong>Order Cancellation Timer: </strong> Reducing this will not only increase autopay reliability but also reduce the effects of volatility.<br /><i>We suggest a value of 1 hour for high throughput stores.</i></li>
                                 <li><strong>Auto-Confirm Percentage: </strong> Do not touch this unless you know what you are doing. <br /><i>If you lower this setting you should have one wallet address for the maximum amount of orders you receive in an hour. (If you have a chance to get 30 orders in an hour in this cryptocurrency, we recommend 30 addresses.)</i></li>
                             </ul></div>',
-            'required' => array($nmm_crypto->get_id() . '_mode', 'equals', '1'),            
-        );        
-    }    
+            'required' => array($nmm_crypto->get_id() . '_mode', 'equals', '1'),
+        );
+    }
     $nmm_section['fields'][] = array(
         'id'       => $nmm_crypto->get_id() . '_addresses',
         'type'     => 'multi_text',
@@ -252,9 +252,9 @@ foreach ($nmm_cryptos as $nmm_crypto) {
         $nmm_section['fields'][] = array(
             'id'       => $nmm_crypto->get_id() . '_hd_mpk_sample_addresses',
             'type'     => 'multi_text',
-            'title'    => 'Privacy Mode Sample Addresses',                  
+            'title'    => 'Privacy Mode Sample Addresses',
             'default'  => [' ',' ',' '],
-            'required' => array($nmm_crypto->get_id() . '_mode', 'equals', '2'),            
+            'required' => array($nmm_crypto->get_id() . '_mode', 'equals', '2'),
             'subtitle' => '<span style="color: red;">PLEASE VERIFY YOU CONTROL THESE ADDRESSES BEFORE SAVING OR ELSE LOSS OF FUNDS WILL OCCUR!!!!</span><br /> Addresses will be generated when a valid MPK is input.',
             'desc' => '<span style="color: red;">PLEASE VERIFY YOU OWN THESE ADDRESSES BEFORE SAVING OR ELSE LOSS OF FUNDS WILL OCCUR!!!!</span><br /><br />Once you have entered a valid MPK we will generate these addresses.<br /><br />Due to lack of convention around MPK xpub prefixes, it is not possible to guess which address format an xpub should generate. We currently ONLY GENERATE LEGACY ADDRESSES starting with a "1".',
         );
@@ -264,11 +264,11 @@ foreach ($nmm_cryptos as $nmm_crypto) {
             'type'     => 'textarea',
             'title'    => 'Privacy Mode MPK',
             'default'  => '',
-            'required' => array($nmm_crypto->get_id() . '_mode', 'equals', '2'),            
+            'required' => array($nmm_crypto->get_id() . '_mode', 'equals', '2'),
             'desc' => 'Your HD Wallet Master Public Key. We highly recommend using a brand new MPK for each store you run. You run the risk of address reuse and incorrectly processed orders if you use your MPK for multiple stores and/or purposes (such as donations on another platform).',
         );
-        
-        
+
+
 
         $nmm_section['fields'][] = array(
             'id'       => $nmm_crypto->get_id() . '_hd_percent_to_process',
@@ -282,7 +282,7 @@ foreach ($nmm_cryptos as $nmm_crypto) {
             'required' => array($nmm_crypto->get_id() . '_mode', 'equals', '2'),
             'desc' => 'Privacy Mode will automatically confirm payments that are this percentage of the total amount requested. (1 = 100%), (0.94 = 94%)',
         );
-        
+
         $nmm_section['fields'][] = array(
             'id'       => $nmm_crypto->get_id() . '_hd_required_confirmations',
             'type'     => 'slider',
@@ -295,7 +295,7 @@ foreach ($nmm_cryptos as $nmm_crypto) {
             'required' => array($nmm_crypto->get_id() . '_mode', 'equals', '2'),
             'desc' => 'This is the number of confirmations a payment needs to receive before it is considered a valid payment.',
         );
-        
+
         $nmm_section['fields'][] = array(
             'id'       => $nmm_crypto->get_id() . '_hd_order_cancellation_time_hr',
             'type'     => 'slider',
@@ -310,7 +310,7 @@ foreach ($nmm_cryptos as $nmm_crypto) {
         );
     }
 
-    if ($nmm_crypto->has_autopay()) {        
+    if ($nmm_crypto->has_autopay()) {
         $nmm_section['fields'][] = array(
             'id'       => $nmm_crypto->get_id() . '_autopayment_percent_to_process',
             'type'     => 'slider',
@@ -349,7 +349,7 @@ foreach ($nmm_cryptos as $nmm_crypto) {
             'required' => array($nmm_crypto->get_id() . '_mode', 'equals', '1'),
             'desc' => 'This is the amount of time in hours that has to elapse before an order is cancelled automatically. (1.5 = 1 hour 30 minutes)',
         );
-    }	
+    }
 
     $nmmSettings = new NMM_Settings(get_option(NMM_REDUX_ID));
 
@@ -386,4 +386,3 @@ $nmm_section = array(
 );
 
 Redux::setSection(NMM_REDUX_ID, $nmm_section);
-?>

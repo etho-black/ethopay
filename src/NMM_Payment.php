@@ -2,7 +2,7 @@
 
 class NMM_Payment {
 
-	public static function check_all_addresses_for_matching_payment($transactionLifetime) {		
+	public static function check_all_addresses_for_matching_payment($transactionLifetime) {
 		$paymentRepo = new NMM_Payment_Repo();
 
 		// get a unique list of unpaid "payments" to crypto addresses
@@ -24,12 +24,12 @@ class NMM_Payment {
 		global $woocommerce;
 		$paymentRepo = new NMM_Payment_Repo();
 		$nmmSettings = new NMM_Settings(get_option(NMM_REDUX_ID));
-		
+
 		$cryptoId = $crypto->get_id();
 
 		NMM_Util::log(__FILE__, __LINE__, '===========================================================================');
 		NMM_Util::log(__FILE__, __LINE__, 'Starting payment verification for: ' . $cryptoId . ' - ' . $address);
-		
+
 		try {
 			$transactions = self::get_address_transactions($cryptoId, $address);
 		}
@@ -37,8 +37,8 @@ class NMM_Payment {
 			NMM_Util::log(__FILE__, __LINE__, 'Unable to get transactions for ' . $cryptoId);
 			return;
 		}
-		
-		NMM_Util::log(__FILE__, __LINE__, 'Transcations found for ' . $cryptoId . ' - ' . $address . ': ' . print_r($transactions, true));	
+
+		NMM_Util::log(__FILE__, __LINE__, 'Transcations found for ' . $cryptoId . ' - ' . $address . ': ' . print_r($transactions, true));
 
 
 		foreach ($transactions as $transaction) {
@@ -72,8 +72,8 @@ class NMM_Payment {
 
 			foreach ($paymentRecords as $record) {
 				$paymentAmount = $record['order_amount'];
-				$paymentAmountSmallestUnit = $paymentAmount * (10**$crypto->get_round_precision());				
-				
+				$paymentAmountSmallestUnit = $paymentAmount * (10**$crypto->get_round_precision());
+
 				$autoPaymentPercent = apply_filters('nmm_autopay_percent', $nmmSettings->get_autopay_processing_percent($cryptoId), $paymentAmount, $cryptoId, $address);
 
 				$percentDifference = abs($transactionAmount - $paymentAmountSmallestUnit) / $transactionAmount;
@@ -96,14 +96,14 @@ class NMM_Payment {
 					$order = new WC_Order($orderId);
 					$order->add_order_note('This order has a matching ' . $cryptoId . ' transaction but we cannot verify it due to other orders with similar payment totals. Please reconcile manually. Transaction Hash: ' . $txHash);
 				}
-				
-				
+
+
 				$nmmSettings->add_consumed_tx($cryptoId, $address, $txHash);
 			}
 			if (count($matchingPaymentRecords) == 1) {
 				// We have validated a transaction: update database to paid, update order to processing, add transaction to consumed transactions
 				$orderId = $matchingPaymentRecords[0]['order_id'];
-				$orderAmount = $matchingPaymentRecords[0]['order_amount'];				
+				$orderAmount = $matchingPaymentRecords[0]['order_amount'];
 
 				$paymentRepo->set_status($orderId, $orderAmount, 'paid');
 				$paymentRepo->set_hash($orderId, $orderAmount, $txHash);
@@ -115,20 +115,23 @@ class NMM_Payment {
 						$cryptoId,
 						date('Y-m-d H:i:s', time()),
 						apply_filters('nmm_order_txhash', $txHash, $cryptoId));
-				
+
 				$order->payment_complete();
-				$order->add_order_note($orderNote);				
+				$order->add_order_note($orderNote);
 
 				update_post_meta($orderId, 'transaction_hash', $txHash);
 
 				$nmmSettings->add_consumed_tx($cryptoId, $address, $txHash);
-			}		
-		}		
+			}
+		}
 	}
 
 	private static function get_address_transactions($cryptoId, $address) {
 		if ($cryptoId === 'ETH') {
 			$result = NMM_Blockchain::get_eth_address_transactions($address);
+		}
+		if ($cryptoId === 'ETHO') {
+			$result = NMM_Blockchain::get_etho_address_transactions($address);
 		}
 		if ($cryptoId === 'BCH') {
 			$result = NMM_Blockchain::get_bch_address_transactions($address);
@@ -167,67 +170,67 @@ class NMM_Payment {
 			$result = NMM_Blockchain::get_blk_address_transactions($address);
 		}
 		if ($cryptoId === 'ADA') {
-			$result = NMM_Blockchain::get_ada_address_transactions($address);	
+			$result = NMM_Blockchain::get_ada_address_transactions($address);
 		}
 		if ($cryptoId === 'XTZ') {
-			$result = NMM_Blockchain::get_xtz_address_transactions($address);	
+			$result = NMM_Blockchain::get_xtz_address_transactions($address);
 		}
 		if ($cryptoId === 'REP') {
-			$result = NMM_Blockchain::get_erc20_address_transactions('REP', $address);	
+			$result = NMM_Blockchain::get_erc20_address_transactions('REP', $address);
 		}
 		if ($cryptoId === 'MLN') {
-			$result = NMM_Blockchain::get_erc20_address_transactions('MLN', $address);	
+			$result = NMM_Blockchain::get_erc20_address_transactions('MLN', $address);
 		}
 		if ($cryptoId === 'GNO') {
-			$result = NMM_Blockchain::get_erc20_address_transactions('GNO', $address);	
+			$result = NMM_Blockchain::get_erc20_address_transactions('GNO', $address);
 		}
 		if ($cryptoId === 'LTC') {
 			$result = NMM_Blockchain::get_ltc_address_transactions($address);
 		}
 		if ($cryptoId === 'BTC') {
-			$result = NMM_Blockchain::get_btc_address_transactions($address);	
+			$result = NMM_Blockchain::get_btc_address_transactions($address);
 		}
 		if ($cryptoId === 'BAT') {
-			$result = NMM_Blockchain::get_erc20_address_transactions('BAT', $address);	
+			$result = NMM_Blockchain::get_erc20_address_transactions('BAT', $address);
 		}
 		if ($cryptoId === 'BNB') {
-			$result = NMM_Blockchain::get_erc20_address_transactions('BNB', $address);	
+			$result = NMM_Blockchain::get_erc20_address_transactions('BNB', $address);
 		}
 		if ($cryptoId === 'HOT') {
-			$result = NMM_Blockchain::get_erc20_address_transactions('HOT', $address);	
+			$result = NMM_Blockchain::get_erc20_address_transactions('HOT', $address);
 		}
 		if ($cryptoId === 'LINK') {
-			$result = NMM_Blockchain::get_erc20_address_transactions('LINK', $address);	
+			$result = NMM_Blockchain::get_erc20_address_transactions('LINK', $address);
 		}
 		if ($cryptoId === 'OMG') {
-			$result = NMM_Blockchain::get_erc20_address_transactions('OMG', $address);	
+			$result = NMM_Blockchain::get_erc20_address_transactions('OMG', $address);
 		}
 		if ($cryptoId === 'ZRX') {
-			$result = NMM_Blockchain::get_erc20_address_transactions('ZRX', $address);	
+			$result = NMM_Blockchain::get_erc20_address_transactions('ZRX', $address);
 		}
 		if ($cryptoId === 'GUSD') {
-			$result = NMM_Blockchain::get_erc20_address_transactions('GUSD', $address);	
+			$result = NMM_Blockchain::get_erc20_address_transactions('GUSD', $address);
 		}
 		if ($cryptoId === 'WAVES') {
-			$result = NMM_Blockchain::get_waves_address_transactions($address);	
+			$result = NMM_Blockchain::get_waves_address_transactions($address);
 		}
 		if ($cryptoId === 'DCR') {
-			$result = NMM_Blockchain::get_dcr_address_transactions($address);	
+			$result = NMM_Blockchain::get_dcr_address_transactions($address);
 		}
 		if ($cryptoId === 'LSK') {
-			$result = NMM_Blockchain::get_lsk_address_transactions($address);	
+			$result = NMM_Blockchain::get_lsk_address_transactions($address);
 		}
 		if ($cryptoId === 'XEM') {
-			$result = NMM_Blockchain::get_xem_address_transactions($address);	
+			$result = NMM_Blockchain::get_xem_address_transactions($address);
 		}
 		if ($cryptoId === 'XMY') {
-			$result = NMM_Blockchain::get_xmy_address_transactions($address);	
+			$result = NMM_Blockchain::get_xmy_address_transactions($address);
 		}
 		if ($cryptoId === 'BTX') {
-			$result = NMM_Blockchain::get_btx_address_transactions($address);	
+			$result = NMM_Blockchain::get_btx_address_transactions($address);
 		}
 		if ($cryptoId === 'GRS') {
-			$result = NMM_Blockchain::get_grs_address_transactions($address);	
+			$result = NMM_Blockchain::get_grs_address_transactions($address);
 		}
         if ($cryptoId === 'DGB') {
             $result = NMM_Blockchain::get_dgb_address_transactions($address);
@@ -235,11 +238,11 @@ class NMM_Payment {
         if ($cryptoId === 'USDC') {
 			$result = NMM_Blockchain::get_erc20_address_transactions('USDC', $address);
 		}
-		
-		if ($result['result'] === 'error') {			
+
+		if ($result['result'] === 'error') {
 			NMM_Util::log(__FILE__, __LINE__, 'BAD API CALL');
 			throw new \Exception('Could not reach external service to do auto payment processing.');
-		}		
+		}
 
 		return $result['transactions'];
 	}
@@ -253,7 +256,7 @@ class NMM_Payment {
 
 		foreach ($unpaidPayments as $paymentRecord) {
 			$orderTime = $paymentRecord['ordered_at'];
-			$cryptoId = $paymentRecord['cryptocurrency'];			
+			$cryptoId = $paymentRecord['cryptocurrency'];
 
 			$paymentCancellationTimeHr = $nmmSettings->get_autopay_cancellation_time($cryptoId);
 			$paymentCancellationTimeSec = $paymentCancellationTimeHr * 60 * 60;
@@ -264,7 +267,7 @@ class NMM_Payment {
 				$orderId = $paymentRecord['order_id'];
 				$orderAmount = $paymentRecord['order_amount'];
 				$address = $paymentRecord['address'];
-				
+
 				$paymentRepo->set_status($orderId, $orderAmount, 'cancelled');
 
 				$order = new WC_Order($orderId);
@@ -275,8 +278,8 @@ class NMM_Payment {
 					$address);
 
 				add_filter('woocommerce_email_subject_customer_note', 'NMM_change_cancelled_email_note_subject_line', 1, 2);
-	    		add_filter('woocommerce_email_heading_customer_note', 'NMM_change_cancelled_email_heading', 1, 2);   
-	    		
+	    		add_filter('woocommerce_email_heading_customer_note', 'NMM_change_cancelled_email_heading', 1, 2);
+
 				$order->update_status('wc-cancelled');
 				$order->add_order_note($orderNote, true);
 
