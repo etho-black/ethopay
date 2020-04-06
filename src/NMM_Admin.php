@@ -181,11 +181,8 @@ Redux::setSection(NMM_REDUX_ID, $nmm_section);
 $nmm_cryptos = NMM_Cryptocurrencies::get_alpha();
 
 foreach ($nmm_cryptos as $nmm_crypto) {
-    $nmm_cryptoOptions = array('0' => 'Classic Mode');
+    $nmm_cryptoOptions = array('1' => 'Automatic Mode <strong>(BETA)</strong>');
 
-    if ($nmm_crypto->has_autopay()) {
-        $nmm_cryptoOptions['1'] = 'Autopay Mode <strong>(BETA)</strong>';
-    }
     if ($nmm_crypto->has_hd()) {
         $nmm_cryptoOptions['2'] = 'Privacy Mode';
     }
@@ -225,9 +222,9 @@ foreach ($nmm_cryptos as $nmm_crypto) {
             'id'       => $nmm_crypto->get_id() . '_autopayment_disclaimer',
             'type'     => 'info',
             'style'    => 'warning',
-            'title'    => '<h3 class="autopay-disclaimer-title">Autopay Disclaimer</h3>',
-            'desc'     => '<div class="autopay-disclaimer-container">Please note Autopay Mode is still in <strong>beta</strong>. There is no guarantee every order will be processed correctly. If you have any questions contact us at support@nomiddlemancrypto.io.
-                            <h3 class="autopay-disclaimer-adjustments">Adjusting the following settings can improve Autopay accuracy</h3>
+            'title'    => '<h3 class="autopay-disclaimer-title">Automatic Mode Disclaimer</h3>',
+            'desc'     => '<div class="autopay-disclaimer-container">Please note Autopay Mode is still in <strong>beta</strong>. There is no guarantee every order will be processed correctly. If you have any questions contact us inside the official Ether-1 Discord.
+                            <h3 class="autopay-disclaimer-adjustments">Adjusting the following settings can improve Automatic Mode accuracy</h3>
                             <ul>
                                 <li><strong>Wallet Addresses: </strong>Adding more addresses greatly increases autopay reliability while increasing privacy.<br /><i>We suggest having as many addresses as orders you get an hour in that cryptocurrency.</i></li>
                                 <li><strong>Order Cancellation Timer: </strong> Reducing this will not only increase autopay reliability but also reduce the effects of volatility.<br /><i>We suggest a value of 1 hour for high throughput stores.</i></li>
@@ -372,14 +369,10 @@ $nmm_section = array(
             'type' => 'button_set',
             'default' => array(0),
             'multi' => true,
-            'desc' => 'Price is average of APIs selected. At least one must be selected. Adding more can slow down thank you page loading.',
-            'title' => 'Selected Pricing Options',
+            'desc' => 'Price is average the CryptoCompare API.',
+            'title' => 'Make sure CryptoCompare is selected, button should be BLUE',
             'options' => array(
                 '0' => 'CryptoCompare',
-                '1' => 'HitBTC',
-                '2' => 'GateIO',
-                '3' => 'Bittrex',
-                '4' => 'Poloniex',
             ),
         ),
     ),
