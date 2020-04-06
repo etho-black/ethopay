@@ -17,7 +17,7 @@ class NMM_Gateway extends WC_Payment_Gateway {
         $this->id = 'nmmpro_gateway';        
         $this->title = $nmmSettings->get_customer_gateway_message();
         $this->has_fields = true;
-        $this->method_title = 'Nomiddleman Crypto Payments';
+        $this->method_title = 'ETHOPay';
         $this->method_description = 'Allow customers to pay using cryptocurrency';
         $this->init_form_fields();
         $this->init_settings();
@@ -29,7 +29,7 @@ class NMM_Gateway extends WC_Payment_Gateway {
     public function admin_options() {
         
         ?>
-        <h2>Nomiddleman Crypto Payments</h2>
+        <h2>ETHOPay</h2>
         <div class="nmm-options">
             <table class="form-table">
                 <?php $this->generate_settings_html(); ?>
