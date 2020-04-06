@@ -34,7 +34,7 @@ class NMM_Gateway extends WC_Payment_Gateway {
             <table class="form-table">
                 <?php $this->generate_settings_html(); ?>
             </table><!--/.form-table-->
-            <a href=<?php echo get_site_url() . '/wp-admin/admin.php?page=' . NMM_REDUX_SLUG . '&tab=1'; ?>>Nomiddleman Plugin Settings</a>
+            <a href=<?php echo get_site_url() . '/wp-admin/admin.php?page=' . NMM_REDUX_SLUG . '&tab=1'; ?>>ETHOPay Plugin Settings</a>
         </div>
         <?php        
     }
