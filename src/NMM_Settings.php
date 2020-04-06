@@ -83,7 +83,7 @@ class NMM_Settings {
 			}
 		}
 
-		return 'Pay with cryptocurrency';
+		return 'Pay with ETHO';
 	}
 
 	public function get_customer_payment_message($crypto) {
