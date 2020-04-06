@@ -8,10 +8,47 @@ class NMM_Cryptocurrencies
         // id, name, round_precision, icon_filename, refresh_time, symbol, has_hd, has_autopay, needs_confirmations, erc20contract
         $cryptoArray = array(
 
+            // privacy mpk
+            'BTC' => new NMM_Cryptocurrency('BTC', 'Bitcoin', 8, 'bitcoin_logo_small.png', 60, '₿', true, true, true, ''),
+            'LTC' => new NMM_Cryptocurrency('LTC', 'Litecoin', 8, 'litecoin_logo_small.png', 60, 'Ł', true, true, true, ''),
+            'QTUM' => new NMM_Cryptocurrency('QTUM', 'Qtum', 8, 'qtum_logo_small.png', 60, '', true, false, true, ''),
+            'DASH' => new NMM_Cryptocurrency('DASH', 'Dash', 8, 'dash_logo_small.png', 60, '', true, true, true, ''),
+            'DOGE' => new NMM_Cryptocurrency('DOGE', 'Dogecoin', 8, 'dogecoin_logo_small.png', 60, 'Ð', true, true, true, ''),
+            'XMY' => new NMM_Cryptocurrency('XMY', 'Myriad', 8, 'myriad_logo_small.png', 60, '', true, true, true, ''),
+            'BTX' => new NMM_Cryptocurrency('BTX', 'Bitcore', 8, 'bitcore_logo_small.png', 60, '', true, true, true, ''),
 
             // auto-pay coins
-            'ETH' => new NMM_Cryptocurrency('ETH', 'Ethereum', 18, 'ethereum_logo_small.png', 60, 'Ξ', false, true, true, ''),
             'ETHO' => new NMM_Cryptocurrency('ETHO', 'Ether-1', 18, 'ether-1_logo.png', 60, 'ETHO', false, true, true, ''),
+            'DGB' => new NMM_Cryptocurrency('DGB', 'Digibyte', 8, 'digibyte_logo_small.png', 60, '', false, true, true, ''),
+            'ZEC' => new NMM_Cryptocurrency('ZEC', 'Zcash', 8, 'zcash_logo_small.png', 60, 'ⓩ', false, true, true, ''),
+            'DCR' => new NMM_Cryptocurrency('DCR', 'Decred', 8, 'decred_logo_small.png', 60, '', false, true, true, ''),
+            'XTZ' => new NMM_Cryptocurrency('XTZ', 'Tezos', 6, 'tezos_logo_small.png', 60, '', false, true, false, ''),
+            'TRX' => new NMM_Cryptocurrency('TRX', 'Tron', 6, 'tron_logo_small.png', 60, '', false, true, false, ''),
+            'XLM' => new NMM_Cryptocurrency('XLM', 'Stellar', 7, 'stellar_logo_small.png', 60, '', false, true, false, ''),
+            'BCH' => new NMM_Cryptocurrency('BCH', 'Bitcoin Cash', 8, 'bitcoincash_logo_small.png', 60, '', false, true, true, ''),
+            'EOS' => new NMM_Cryptocurrency('EOS', 'EOS', 4, 'eos_logo_small.png', 60, '', false, true, false, ''),
+            'BSV' => new NMM_Cryptocurrency('BSV', 'Bitcoin SV', 8, 'bitcoinsv_logo_small.png', 60, '', false, true, false, ''),
+            'XRP' => new NMM_Cryptocurrency('XRP', 'XRP', 6, 'xrp_logo_small.png', 60, '', false, true, false, ''),
+            'ONION' => new NMM_Cryptocurrency('ONION', 'DeepOnion', 8, 'deeponion_logo_small.png', 60, '', false, true, true, ''),
+            'BLK' => new NMM_Cryptocurrency('BLK', 'BlackCoin', 8, 'blackcoin_logo_small.png', 60, '', false, true, true, ''),
+            'ETC' => new NMM_Cryptocurrency('ETC', 'Ethereum Classic', 18, 'ethereumclassic_logo_small.png', 60, '', false, true, true, ''),
+            'LSK' => new NMM_Cryptocurrency('LSK', 'Lisk', 8, 'lisk_logo_small.png', 60, '', false, true, true, ''),
+            'XEM' => new NMM_Cryptocurrency('XEM', 'NEM', 6, 'nem_logo_small.png', 60, '', false, true, true, ''),
+            'WAVES' => new NMM_Cryptocurrency('WAVES', 'Waves', 8, 'waves_logo_small.png', 60, '', false, true, true, ''),
+            'GRS' => new NMM_Cryptocurrency('GRS', 'Groestlcoin', 8, 'groestlcoin_logo_small.png', 60, '', false, true, true, false),
+            'APL' => new NMM_Cryptocurrency('APL', 'Apollo Currency', 8, 'apollocurrency_logo_small.png', 60, '', false, false, true, false),
+
+            // tokens
+            'HOT' => new NMM_Cryptocurrency('HOT', 'Holochain', 18, 'holochain_logo_small.png', 60, '', false, true, true, '0x6c6ee5e31d828de241282b9606c8e98ea48526e2'),
+            'LINK' => new NMM_Cryptocurrency('LINK', 'Chainlink', 18, 'chainlink_logo_small.png', 60, '', false, true, true, '0x514910771af9ca656af840dff83e8264ecf986ca'),
+            'BAT' => new NMM_Cryptocurrency('BAT', 'Basic Attention Token', 18, 'basicattentiontoken_logo_small.png', 60, '', false, true, true, '0x0d8775f648430679a709e98d2b0cb6250d2887ef'),
+            'MKR' => new NMM_Cryptocurrency('MKR', 'Maker', 18, 'maker_logo_small.png', 60, '', false, true, true, '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2'),
+            'OMG' => new NMM_Cryptocurrency('OMG', 'OmiseGO', 18, 'omisego_logo_small.png', 60, '', false, true, true, '0xd26114cd6EE289AccF82350c8d8487fedB8A0C07'),
+            'REP' => new NMM_Cryptocurrency('REP', 'Augur', 18, 'augur_logo_small.png', 60, '', false, true, true, '0x1985365e9f78359a9B6AD760e32412f4a445E862'),
+            'GNO' => new NMM_Cryptocurrency('GNO', 'Gnosis', 18, 'gnosis_logo_small.png', 60, '', false, true, true, '0x6810e776880c02933d47db1b9fc05908e5386b96'),
+            'MLN' => new NMM_Cryptocurrency('MLN', 'Melon', 18, 'melon_logo_small.png', 60, '', false, true, true, '0xbeb9ef514a379b997e0798fdcc901ee474b6d9a1'),
+            'ZRX' => new NMM_Cryptocurrency('ZRX', '0x', 18, '0x_logo_small.png', 60, '', false, true, true, '0xe41d2489571d322189246dafa5ebde1f4699f498'),
+            'USDC' => new NMM_Cryptocurrency('USDC', 'USDC', 6, 'usdc_logo_small.png', 60, '', false, true, true, '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'),
 
             // no support
             'XMR' => new NMM_Cryptocurrency('XMR', 'Monero', 12, 'monero_logo_small.png', 60, 'ɱ', false, false, true, ''),
@@ -22,7 +59,6 @@ class NMM_Cryptocurrencies
             'BCN' => new NMM_Cryptocurrency('BCN', 'Bytecoin', 8, 'bytecoin_logo_small.png', 60, '', false, false, true, ''),
             'BNB' => new NMM_Cryptocurrency('BNB', 'Binance Coin', 18, 'binancecoin_logo_small.png', 60, '', false, false, true, ''),
             'GUSD' => new NMM_Cryptocurrency('GUSD', 'Gemini Dollar', 2, 'geminidollar_logo_small.png', 60, '', false, false, true, '0x056Fd409E1d7A124BD7017459dFEa2F387b6d5Cd'),
-
 
             // More searching required
 
