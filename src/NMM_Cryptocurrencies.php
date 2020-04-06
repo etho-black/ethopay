@@ -36,13 +36,10 @@ class NMM_Cryptocurrencies
             'XEM' => new NMM_Cryptocurrency('XEM', 'NEM', 6, 'nem_logo_small.png', 60, '', false, true, true, ''),
             'WAVES' => new NMM_Cryptocurrency('WAVES', 'Waves', 8, 'waves_logo_small.png', 60, '', false, true, true, ''),
             'GRS' => new NMM_Cryptocurrency('GRS', 'Groestlcoin', 8, 'groestlcoin_logo_small.png', 60, '', false, true, true, false),
-            'APL' => new NMM_Cryptocurrency('APL', 'Apollo Currency', 8, 'apollocurrency_logo_small.png', 60, '', false, false, true, false),
 
             // tokens
             'HOT' => new NMM_Cryptocurrency('HOT', 'Holochain', 18, 'holochain_logo_small.png', 60, '', false, true, true, '0x6c6ee5e31d828de241282b9606c8e98ea48526e2'),
-            'LINK' => new NMM_Cryptocurrency('LINK', 'Chainlink', 18, 'chainlink_logo_small.png', 60, '', false, true, true, '0x514910771af9ca656af840dff83e8264ecf986ca'),
-            'BAT' => new NMM_Cryptocurrency('BAT', 'Basic Attention Token', 18, 'basicattentiontoken_logo_small.png', 60, '', false, true, true, '0x0d8775f648430679a709e98d2b0cb6250d2887ef'),
-            'MKR' => new NMM_Cryptocurrency('MKR', 'Maker', 18, 'maker_logo_small.png', 60, '', false, true, true, '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2'),
+            'LINK' => new NMM_Cryptocurrency('LINK', 'Chainlink', 18, 'chainlink_logo_small.png', 60, '', false, true, true, '0x514910771af9ca656af840dff83e8264ecf986ca'),            'MKR' => new NMM_Cryptocurrency('MKR', 'Maker', 18, 'maker_logo_small.png', 60, '', false, true, true, '0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2'),
             'OMG' => new NMM_Cryptocurrency('OMG', 'OmiseGO', 18, 'omisego_logo_small.png', 60, '', false, true, true, '0xd26114cd6EE289AccF82350c8d8487fedB8A0C07'),
             'REP' => new NMM_Cryptocurrency('REP', 'Augur', 18, 'augur_logo_small.png', 60, '', false, true, true, '0x1985365e9f78359a9B6AD760e32412f4a445E862'),
             'GNO' => new NMM_Cryptocurrency('GNO', 'Gnosis', 18, 'gnosis_logo_small.png', 60, '', false, true, true, '0x6810e776880c02933d47db1b9fc05908e5386b96'),
