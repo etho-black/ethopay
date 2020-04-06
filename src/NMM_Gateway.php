@@ -18,7 +18,7 @@ class NMM_Gateway extends WC_Payment_Gateway {
         $this->title = $nmmSettings->get_customer_gateway_message();
         $this->has_fields = true;
         $this->method_title = 'ETHOPay';
-        $this->method_description = 'Allow customers to pay using cryptocurrency';
+        $this->method_description = 'Allow customers to pay using ETHO';
         $this->init_form_fields();
         $this->init_settings();
 
