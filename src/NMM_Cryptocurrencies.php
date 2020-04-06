@@ -23,7 +23,6 @@ class NMM_Cryptocurrencies
             'DGB' => new NMM_Cryptocurrency('DGB', 'Digibyte', 8, 'digibyte_logo_small.png', 60, '', false, true, true, ''),
             'ZEC' => new NMM_Cryptocurrency('ZEC', 'Zcash', 8, 'zcash_logo_small.png', 60, 'ⓩ', false, true, true, ''),
             'DCR' => new NMM_Cryptocurrency('DCR', 'Decred', 8, 'decred_logo_small.png', 60, '', false, true, true, ''),
-            'ADA' => new NMM_Cryptocurrency('ADA', 'Cardano', 6, 'cardano_logo_small.png', 60, '', false, true, false, ''),
             'XTZ' => new NMM_Cryptocurrency('XTZ', 'Tezos', 6, 'tezos_logo_small.png', 60, '', false, true, false, ''),
             'TRX' => new NMM_Cryptocurrency('TRX', 'Tron', 6, 'tron_logo_small.png', 60, '', false, true, false, ''),
             'XLM' => new NMM_Cryptocurrency('XLM', 'Stellar', 7, 'stellar_logo_small.png', 60, '', false, true, false, ''),
