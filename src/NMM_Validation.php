@@ -53,7 +53,7 @@ class NMM_Validation {
 							$errorMessages[] = 'Please use an xpub MPK. Disabling ' . $cryptoName . '.';                    
 						}
 						else {
-							$errorMessages[] = $cryptoName . ' has an invalid HD MPK. Disabling ' . $cryptoName . '. If you have a wallet that supports this MPK, please contact us at <a href="mailto:support@nomiddlemancrypto.io">support@nomiddlemancrypto.io</a>.';
+							$errorMessages[] = $cryptoName . ' has an invalid HD MPK. Disabling ' . $cryptoName . '. If you have a wallet that supports this MPK, contact us on discord</a>.';
 						}
 					}
 					else {
