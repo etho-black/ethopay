@@ -8,8 +8,8 @@ Description: WooCommerce Ether-1 Payment Gateway
 Author: nomiddleman & etho.black
 Author URI: Ether-1
 
-Version: 2.4.9
-Copyright: © 2019 Nomiddleman Crypto (email : support@nomiddlemancrypto.io)
+Version: 1.0
+Copyright: © 2020 Nomiddleman Crypto & etho.black
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
