@@ -318,7 +318,7 @@ foreach ($nmm_cryptos as $nmm_crypto) {
             'resolution' => 0.0001,
             'title'    => 'Auto-Confirm Percentage',
             'required' => array($nmm_crypto->get_id() . '_mode', 'equals', '1'),
-            'desc' => 'Auto-Payment will automatically confirm payments that are within this percentage of the total amount requested. Contact support@nomiddlemancrypto.io before changing this value.',
+            'desc' => 'Auto-Payment will automatically confirm payments that are within this percentage of the total amount requested. This should stay default. Change at your own risk.',
         );
         if ($nmm_crypto->needs_confirmations()) {
             $nmm_section['fields'][] = array(
