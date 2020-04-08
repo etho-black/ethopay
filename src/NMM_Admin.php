@@ -57,7 +57,7 @@ $nmm_redux_args = array(
     // For a full list of options, visit: http://codex.wordpress.org/Function_Reference/add_submenu_page#Parameters
     'page_permissions'     => 'manage_options',
     // Permissions needed to access the options panel.
-    'menu_icon'            => NMM_PLUGIN_DIR . '/assets/img/ether1.svg',
+    'menu_icon'            => NMM_PLUGIN_DIR . '/assets/img/ether1.png',
     // Specify a custom URL to an icon
     'last_tab'             => '0',
     // Force your panel to always open to a specific tab (by id)
