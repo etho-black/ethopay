@@ -402,12 +402,12 @@ class NMM_Gateway extends WC_Payment_Gateway {
                 <p style="word-wrap: break-word;">Total: 
                     <strong>
                         <span class="woocommerce-Price-amount amount">
-                            <?php 
+<?php 
                                 if ($crypto->get_symbol() === '') {
-                                    echo '<span class="all-copy">' . $formattedPrice . '</span><span class="no-copy">&nbsp' . $crypto->get_id() . '</span>';
+                                    echo '<span class="no-copy">&nbsp' . $crypto->get_id() . '</span>' . '<span class="all-copy">' . $formattedPrice . '</span>';
                                 }
                                 else {
-                                    echo '<span class="no-copy">' . $crypto->get_symbol() . '</span>' . '<span class="all-copy">' . $formattedPrice . '</span>';
+                                    echo'<span class="all-copy">' . $formattedPrice . '</span>' . '<span class="no-copy">' . $crypto->get_symbol() . '</span>';
                                 }
                             ?>
                         </span>
