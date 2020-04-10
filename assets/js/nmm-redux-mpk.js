@@ -108,7 +108,7 @@ var generateMpkAddresses = function (cryptoId, numberOfSamples) {
 jQuery(document).ready(function() {
 	let numberOfSamples = 3;
 
-	let hdCryptos = ['BTC', 'LTC', 'DASH', 'DOGE', 'QTUM', 'XMY', 'BTX'];
+	let hdCryptos = [''];
 
 	hdCryptos.forEach(function (cryptoId) {
 		hideRemoveLinks(cryptoId, numberOfSamples);
