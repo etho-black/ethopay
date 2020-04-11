@@ -1,26 +1,13 @@
-# Nomiddleman Crypto Payments for Woocommerce [WordPress plugin](https://wordpress.org/plugins/nomiddleman-crypto-payments-for-woocommerce/) 
+# ETHOPay
 
-[Get it in the WordPress plugin repo](https://wordpress.org/plugins/nomiddleman-crypto-payments-for-woocommerce/)
+## Accept $ETHO as a payment method on WooCommerce
 
-Classic Mode
-============
-Classic mode includes the basic functionality for a cryptocurrency. It will cycle through your addresses displaying a different one for each order, fetches real time valuation based on selected pricing options, and outputs a QR code to the customer on the thank you page.
+Known Bugs:
 
-Autopay Mode
-============
-### Autopay Mode builds on Classic Mode with the following additions:
+* Addresses with a very long transaction history are very hard for ETHOPay to read due to the size of the files it has to download - we recommend starting your store with a fresh address and replacing it with a new address every 300-400 Transactions, the less TXs the quicker the plugin will work and the less likely it will hang.
 
-- Scans blockchain APIs for transactions that match your orders
-- Updates orders to processing once a matching transaction is found
-- Emails the customer indicating payment has been received
-- Cancels unpaid orders after a set amount of time
+* Missing TX's this is quite uncommon but it does happen from time to time. If an order has been "On Hold" for a decent amount of time (More than 15 Minutes), it's likely that the TX has been missed or the person hasn't paid - in the case of the TX being missed verify the payment using the Ether-1 explorer on https://explorer.ether1.org and manually update the order.
 
-Privacy Mode
-============
-Privacy Mode allows you to utilize your HD Wallet’s Master Public Key to generate a unique address for every order.
+If you need any support please feel free to join us in discord: https://discord.gg/cJY583m
 
-### Privacy mode includes all Autopay functionality with these additional features:
-
-- Unique cryptocurrency payment address for every order
-- If an order receives a payment too small to process, an email is sent to the customer with the remaining balance
-- No chance of payment collisions due to unique address per order
+An installation video can be found at: https://www.youtube.com/watch?v=4t43qbzrEdg
