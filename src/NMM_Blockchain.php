@@ -1053,7 +1053,7 @@ class NMM_Blockchain
 
     public static function get_etho_address_transactions($address)
     {
-        $request = 'https://explorer.xerom.org/api?module=account&action=txlist&address=' . $address . '&sort=desc';
+        $request = 'https://ether1.xerom.org/api?module=account&action=txlist&address=' . $address . '&sort=desc';
 
         $response = wp_remote_get($request);
 
