@@ -370,12 +370,12 @@ class NMM_Gateway extends WC_Payment_Gateway
 
         <h2>Cryptocurrency payment details</h2>
         <ul class="woocommerce-order-overview woocommerce-thankyou-order-details order_details">
-            <li class="woocommerce-order-overview__qr-code">
+            <!--<li class="woocommerce-order-overview__qr-code">
                 <p style="word-wrap: break-word;">QR Code payment:</p>
                 <div class="qr-code-container">
                     <img style="margin-top:3px;" src=<?php echo $qrCode; ?> />
                 </div>
-            </li>
+            </li>-->
             <li>
                 <p style="word-wrap: break-word;">Wallet Address:
                     <strong>
